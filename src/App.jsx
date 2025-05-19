@@ -1,11 +1,32 @@
-import { useState } from 'react'
+import { useState, useReducer } from 'react'
 import './App.css'
-import Header from './components/Header'
+
+const initialState = [];
+
+function reducer (state,action) {
+  switch (action.type) {
+    case "add": {
+      return;
+    }
+    case "edit": {
+      return;
+    }
+    case "delete": {
+    return;
+    }
+    case "save": {
+      return;
+    }
+    default:
+      return state;
+    
+  }
+}
 
 function App() {
   return(
 
-    <Header></Header>
+    <h1>To Do List</h1>
 )}
 
 export default App
