@@ -6,7 +6,12 @@ const initialState = [];
 function reducer (state,action) {
   switch (action.type) {
     case "add": {
-      return;
+      return [{
+        id: Date.now(),
+        text: action.payload,
+        complete: false,
+        editing: false,
+      }, ...state];
     }
     case "edit": {
       return;
@@ -24,9 +29,29 @@ function reducer (state,action) {
 }
 
 function App() {
-  return(
+  const [todos, dispatch] = useReducer(reducer, initialState);
+  const [newTodo, setNewTodo] = useState('');
 
-    <h1>To Do List</h1>
+  const handleAdd =  () => {
+    if (newTodo.trim()) {
+      dispatch({type: "add", payload: newTodo.trim()});
+      setNewTodo('')
+    }
+  }
+  return(
+   <div>
+      <h1>To Do List</h1>
+      <input 
+      type = "text"
+      value = {newTodo}
+      onChange = {(e) => setNewTodo(e.target.value)}
+      onKeyPress={(e) =>e.key === 'Enter' && handleAdd()} 
+      />
+      <button onClick={handleAdd}>Add Item</button>
+      {todos.map(todo => (
+        <li key= {todo.id}>{todo.text}</li>
+      ))}
+    </div> 
 )}
 
 export default App
